@@ -1,4 +1,4 @@
-<?php
+﻿<?php
   error_reporting(E_ALL);
 
   $continents = array(
@@ -21,27 +21,34 @@
       'Arctocephalus gazella', 'Aptenodytes forsteri', 'Pagodroma nivea'
     )
   );
-
-  foreach ($continents as $continentKey => $continentName) {
-    foreach ($continentName as $animalKey => $animalName) {
-      $spacePosition = strpos($animalName, ' ');
+//Находим парные имена, создаем два массива: $fantasticBeast, состоящий из континента и первой части имени; $secondNameArray - состоящий из второй части имени
+   foreach ($continents as $continentKey => $continent) {
+    $firstName = '';
+    foreach ($continent as $animalKey => $animalName) {
+      $spacePosition = strpos($animalName, ' '); //находим пробел, если есть, делим элемент на две части 
       if (!empty($spacePosition)) {
-        $firstNameArray[] = substr($animalName, 0, $spacePosition);
-        $secondNameArray[] = substr($animalName, $spacePosition + 1);
-      }
+        $firstName = $firstName . substr($animalName, 0, $spacePosition) . ',';
+        $secondNameArray[] = substr($animalName, $spacePosition);        
+      } 
+    }
+    $fantasticBeast[$continentKey] = explode(',', $firstName);
+  }
+//Перемешивание вторых частей имён
+  shuffle($secondNameArray);
+//Выводим всё вместе, пробуем убрать пробел у последнего элемента
+  foreach ($fantasticBeast as $fantasticContinent => $firstNameArray) {
+    echo '<h2>' . $fantasticContinent . '</h2>';
+    for ($i=0; $i<count($firstNameArray) - 1; $i++) {
+      echo $firstNameArray[$i] . $secondNameArray[$i] . ', ';
     }
   }
+?>
 
-  shuffle ($secondNameArray);
-
-  for ($i=0; $i<count($firstNameArray) - 1; $i++) {
-      echo $firstNameArray[$i] . ' ' . $secondNameArray[$i] . ',<br>';
-  }
-
-  echo $firstNameArray[count($firstNameArray) - 1] . ' ' . $secondNameArray[count($firstNameArray) - 1];
-
-  /*var_dump ($fantasticBeast);*/
-  echo '<br><br>';
-  var_dump ($firstNameArray);
-  echo '<br><br>';
-  var_dump ($secondNameArray);
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>Фантастические твари и места их обитания</title>
+</head>
+<body>
+</body>
+</html>
