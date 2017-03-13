@@ -33,13 +33,21 @@
     }
     $fantasticBeast[$continentKey] = explode(',', $firstName);
   }
-//Перемешивание вторых частей имён
+
   shuffle($secondNameArray);
-//Выводим всё вместе, пробуем убрать пробел у последнего элемента
+  $arrayCounter = 0;
+//Вводим всё вместе, пробуем убрать пробел у последнего элемента
   foreach ($fantasticBeast as $fantasticContinent => $firstNameArray) {
+    array_pop($firstNameArray);
     echo '<h2>' . $fantasticContinent . '</h2>';
-    for ($i=0; $i<count($firstNameArray) - 1; $i++) {
-      echo $firstNameArray[$i] . $secondNameArray[$i] . ', ';
+    for ($i=0; $i<=count($firstNameArray) - 1; $i++) {
+      if ($i === count($firstNameArray) - 1) {
+        echo $firstNameArray[$i] . $secondNameArray[$arrayCounter];
+      }
+      else {
+        echo $firstNameArray[$i] . $secondNameArray[$arrayCounter] . ', ';
+      }
+      $arrayCounter++; 
     }
   }
 ?>
@@ -47,7 +55,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <title>Фантастические твари и места их обитания</title>
+  <meta charset="utf-8">
+  <title>Fantastic Beast and where to find them</title>
 </head>
 <body>
 </body>
