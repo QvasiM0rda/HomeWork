@@ -28,8 +28,8 @@
   $weatherConditionsIcon = 'http://openweathermap.org/img/w/' . $weatherData['weather'][0]['icon'] . '.png';
   $weatherTemp = kelvinToCelsius($weatherData['main']['temp']) . ' &degC';
   $humidity = $weatherData['main']['humidity'] . '%';
-  $pressure = hpaToMmhg($weatherData['main']['pressure']) . ' мм. рт. ст.';
-  $windSpeed = $weatherData['wind']['speed'] . ' м/с';
+  $pressure = hpaToMmhg($weatherData['main']['pressure']) . ' mm Hg';
+  $windSpeed = $weatherData['wind']['speed'] . ' meters per second';
   $cloud = $weatherData['clouds']['all'] . ' %';
   $date = date('d F, Y', $weatherData['dt']);
 ?>
