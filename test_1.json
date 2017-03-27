@@ -1,0 +1,9 @@
+[
+  {
+    "question": "Чему равно 2 + 2?",
+    "type": "text",
+    "name": "answer",
+    "id": "answer",
+    "result": 4
+  }
+]
