@@ -11,21 +11,16 @@
     $testFileName = __DIR__ . '/files/' . $testList[$testNumber]['name'];
 
     $testFile = file_get_contents($testFileName);
-    $test = json_decode($testFile, true);
+    $testArray = json_decode($testFile, true);
 
-    $question = $test[0]['question'];
-    $type = '"' . $test[0]['type'] . '"';
-    $name = '"' . $test[0]['name'] . '"';
-    $result = $test[0]['result'];
-    $id = '"' . $test[0]['id'] . '"';
-
-    if (isset($_POST['answer'])) {
-      $resultGet = $_POST['answer'];
-      $resultInt = (int) $resultGet;
-      if ($resultInt === $result) {
-        $res = 'Правильно';
-      } else {
-        $res = 'Не правильно';
+    if (isset($_POST[1])) {
+      for ($i=1; $i<=count($testArray); $i++){
+        $answer = $_POST[$i];
+        if ($answer === $testArray[$i-1]['result']) {
+          $resultArray[$i] = 'Вопрос №' . $i . ' - Правильно';
+        } else {
+          $resultArray[$i] = 'Вопрос №' . $i . ' - Не правильно';
+        }
       }
     }
   }
@@ -38,12 +33,28 @@
     <title>Тест</title>
   </head>
   <body>
-    <?php if(isset($res)) { echo $res; } ?>
-    <form method="post">
-      <label for=<?= $id; ?> > <?= $question; ?> </label>
-      <input type=<?= $type; ?> name=<?= $name; ?> id=<?= $id; ?>>
+    <?php
+      if(isset($resultArray)){
+        foreach ($resultArray as $results) {
+          echo $results . '<br>';
+        }
+        die;
+      } ?>
+    <form method="POST">
+      <?php foreach ($testArray as $test) {
+      $question = $test['question'];
+      $type = '"' . $test['type'] . '"';
+      $name = '"' . $test['name'] . '"';
+      $id = '"' . $test['id'] . '"';
+      $result = $test['result'];
+
+      $formLabel = '<label for=' . $id .'>' . $question . '</label>';
+      $formInput = '<input type=' . $type . ' name=' . $name . ' id=' . $id .  '>' ?>
+      <?= $formLabel; ?>
+      <?= $formInput; ?>
       <br>
-      <button value="answer">Ответить</button>
+      <?php } ?>
+      <button>Ответить</button>
     </form>
   </body>
 </html>

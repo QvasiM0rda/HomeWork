@@ -1,9 +1,9 @@
 [
   {
-    "question": "Чему равно 2 - 2?",
+    "question": "Чему равно 7 * 8?",
     "type": "text",
-    "name": "answer",
-    "id": "answer",
-    "result": 0
+    "name": 1,
+    "id": "answer_1",
+    "result": "56"
   }
 ]
