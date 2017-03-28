@@ -2,7 +2,7 @@
   error_reporting(E_ALL);
   
   if  (isset($_POST['redirect'])) {
-    header("Location: /u/kerimov/me/list.php");
+    header("Location: list.php");
   }
 
   $uploadedFile = isset($_FILES['file_upload']) ? $_FILES['file_upload'] : '';
