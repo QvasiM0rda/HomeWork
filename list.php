@@ -1,7 +1,8 @@
 ﻿<?php
   error_reporting(E_ALL);
   
-  $fileName = __DIR__ . '/test_list.json';
+
+  $fileName = __DIR__ . '/files/test_list.json';
   $testFile = file_get_contents($fileName);
   $testFileDecoded = json_decode($testFile, true);
 ?>
@@ -13,8 +14,11 @@
   	<title>Список загруженных тестов</title>
   </head>
   <body>
-    <?php foreach ($testFileDecoded as $testFileName) { ?>
-    	<p><?= $testFileName['name']; ?></p>
+    <?php for ($i=1; $i<=count($testFileDecoded); $i++) { 
+      $testFileName = 'Тест № ' . $i . ' - ' . $testFileDecoded[$i-1]; ?>
+    <p>
+      <?= $testFileName; ?>
+    </p>
     <?php } ?>
     <form method="GET" action="test.php">
       <label for="test_number">Введите номер теста: </label>

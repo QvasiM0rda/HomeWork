@@ -5,23 +5,41 @@
     header("Location: list.php");
   }
 
-  $uploadedFile = isset($_FILES['file_upload']) ? $_FILES['file_upload'] : '';
-  if ($uploadedFile !== '') {
-    $uploadedFileName = $uploadedFile['name'];
-    $uploadedFileTmpName = $uploadedFile['tmp_name'];
-    $uploadedFilePath = __DIR__ . '/files/' . $uploadedFileName;
-    $fileMoved = move_uploaded_file($uploadedFileTmpName, $uploadedFilePath);
-    if ($fileMoved) {
-      $moveResult = 'Файл успешно загружен!';
-      $fileName = __DIR__ . '/test_list.json';
-      $testList = file_get_contents($fileName);
-      $testListDecoded = json_decode($testList);
-      $testListDecoded[] = ['name' => $uploadedFileName];
-      file_put_contents($fileName, json_encode($testListDecoded, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-    } else {
-      $moveResult = 'Файл не был загружен!';
+  function fileList ($testName) {
+    $fileListName = __DIR__ . '/files/test_list.json';
+    if (!file_exists($fileListName)) {
+      $file = fopen($fileListName, 'w');
+      fclose($file);
+    }
+
+    $testList = file_get_contents($fileListName);
+    $testListDecoded = json_decode($testList, true);
+    $testListDecoded[] = $testName;
+
+    $testListEncoded = json_encode($testListDecoded, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+
+    file_put_contents($fileListName, $testListEncoded);
+  }
+
+  function fileMove ($file) {
+    if ($file !== '') {
+      $fileName = $file['name'];
+      $fileTmpName = $file['tmp_name'];
+      $filePath = __DIR__ . '/files/' . $fileName;
+      $fileMoved = move_uploaded_file($fileTmpName, $filePath);
+      if ($fileMoved === true) {
+        $moveResult = 'Файл успешно загружен!';
+        fileList($fileName);
+      } else {
+        $moveResult = 'Файл не был загружен!';
+      }
+      return ($moveResult);
     }
   }
+
+  $uploadedFile = isset($_FILES['file_upload']) ? $_FILES['file_upload'] : '';
+  echo fileMove($uploadedFile);
+
 ?>
 
 <!DOCTYPE html>
