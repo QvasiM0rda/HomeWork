@@ -1,10 +1,9 @@
 ﻿<?php
   error_reporting(E_ALL);
+  require_once 'functions.php';
   
-
   $fileName = __DIR__ . '/files/test_list.json';
-  $testFile = file_get_contents($fileName);
-  $testFileDecoded = json_decode($testFile, true);
+  $testFile = getJSON($fileName);
 ?>
 
 <!DOCTYPE html>
@@ -14,8 +13,8 @@
   	<title>Список загруженных тестов</title>
   </head>
   <body>
-    <?php for ($i=1; $i<=count($testFileDecoded); $i++) { 
-      $testFileName = 'Тест № ' . $i . ' - ' . $testFileDecoded[$i-1]; ?>
+    <?php for ($i=1; $i<=count($testFile); $i++) {
+      $testFileName = 'Тест № ' . $i . ' - ' . $testFile[$i-1]; ?>
     <p>
       <?= $testFileName; ?>
     </p>

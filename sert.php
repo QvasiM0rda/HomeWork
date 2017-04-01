@@ -2,7 +2,6 @@
   error_reporting(E_ALL);
   session_start();
   header('Content-Disposition: attachment; filename="sert.jpg');
-  //header('Content-Type: image/jpeg');
   
   $sertTempateFile = __DIR__ . '/files/sert.jpg';
   $sertTemplateWidth =  800;
@@ -17,7 +16,7 @@
   $textColor = imagecolorallocate($sert, 0, 0, 0);
   $text = 'Сертификат, подтверждающий, что';
   $userName = $_SESSION['name'];
-  $text2 = 'проше тест № ' . $_SESSION['test_number'];
+  $text2 = 'прошел тест № ' . $_SESSION['test_number'];
   $text3 = 'И получил оценку';
   $rate = $_SESSION['rate'];
 
@@ -27,5 +26,5 @@
   imagettftext($sert, 25, 0, 180, 300, $textColor, $fontFile, $userName);
   imagettftext($sert, 25, 0, 180, 350, $textColor, $fontFile, $text2);
   imagettftext($sert, 25, 0, 180, 400, $textColor, $fontFile, $text3);
-  imagettftext($sert, 50, 0, 450, 420, $textColor, $fontFile, $rate);
+  imagettftext($sert, 30, 0, 450, 400, $textColor, $fontFile, $rate);
   imagejpeg($sert, null, 100);
