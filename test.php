@@ -3,11 +3,11 @@
   session_start();
   require_once 'functions.php';
   
-  if (isset($_GET['test_number'])) {
+  if (isset($_SESSION['test_number'])) {
     $testListDir = __DIR__ . '/files/test_list.json';    
     $testList = getJSON($testListDir);
     
-    $testNumber = (int)$_GET['test_number'];
+    $testNumber = (int)$_SESSION['test_number'];
     $_SESSION['test_number'] = $testNumber;
     
     $testArray = getTest($testList, $testNumber);
@@ -45,7 +45,7 @@
         if (!empty($testArray)) {
           $formOutput = form($testArray);
         } else {
-            echo '<p>Тест не выбрат</p>';
+            echo '<p>Тест не выбран</p>';
             die;
         }
         foreach ($formOutput as $output) {
@@ -54,8 +54,6 @@
           echo '<br>';
         }
       ?>
-      <label for="fio">Введите Ваше имя и фамилию</label>
-      <input type="text" name="fio" id="fio">
       <button>Ответить</button>
     </form>
   </body>

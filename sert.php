@@ -15,7 +15,7 @@
 
   $textColor = imagecolorallocate($sert, 0, 0, 0);
   $text = 'Сертификат, подтверждающий, что';
-  $userName = $_SESSION['name'];
+  $userName = $_SESSION['user_name'];
   $text2 = 'прошел тест № ' . $_SESSION['test_number'];
   $text3 = 'И получил оценку';
   $rate = $_SESSION['rate'];

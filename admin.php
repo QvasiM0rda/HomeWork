@@ -1,6 +1,14 @@
 ﻿<?php
   error_reporting(E_ALL);
+  session_start();
   require_once 'functions.php';
+  
+  if ($_SESSION['login'] === 'guest') {
+    header('HTTP/1.0 404 Not Found');
+    header('HTTP/1.1 404 Not Found');
+    header('Status: 404 Not Found');
+    die();
+  }
   
   if  (isset($_POST['redirect'])) {
     header("Location: list.php");

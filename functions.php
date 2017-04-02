@@ -1,15 +1,21 @@
 <?php
 
   //Открывает и декодирюет JSON файл
-  //--------------------------------------------------------------------------------------------------------------------
   function getJSON ($file) {
-      $content = file_get_contents($file);
-      $data = json_decode($content, true);
-      return $data;
+    $content = file_get_contents($file);
+    $data = json_decode($content, true);
+    return $data;
   }
   
+  function jsonEncode ($array, $file) {
+    $data = json_encode($array, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    $putResult = file_put_contents($file, $data);
+    return $putResult;
+  }
+  
+  
+  
   //Проверяет, был ли такой файл загружен ранее
-  //--------------------------------------------------------------------------------------------------------------------
   function testCheck ($testArray, $uploadedTest) {
     foreach ($testArray as $testName) {
       if ($testName === $uploadedTest) {
@@ -20,7 +26,6 @@
   }
 
   //Добавляет имя файла в список файлов
-  //--------------------------------------------------------------------------------------------------------------------
   function fileList ($testName) {
     $fileListName = __DIR__ . '/files/test_list.json';
     if (!file_exists($fileListName)) {
@@ -41,7 +46,6 @@
   }
 
   //Перемещает загруженный файл
-  //--------------------------------------------------------------------------------------------------------------------
   function fileMove ($file) {
     $fileName = $file['name'];
     $fileTmpName = $file['tmp_name'];
@@ -62,7 +66,6 @@
   }
   
   //Подгружает тест по номеру, если теста в списке нет - возвращает false
-  //--------------------------------------------------------------------------------------------------------------------
   function getTest($list, $number) {
     $listLength = count($list);
     for($i = 1; $i <= $listLength; $i++) {
@@ -79,7 +82,6 @@
   }
   
   //Проверяет ответы
-//--------------------------------------------------------------------------------------------------------------------
   function testResult($answerArray, $testArray) {
     $arrayLength = count($testArray);
     $rightAnswer = 0;
@@ -106,7 +108,6 @@
   }
   
   //Выводит форму для ответов
-  //--------------------------------------------------------------------------------------------------------------------
   function form($array) {
     $formOutput = [];
     $i = 0;
@@ -121,4 +122,19 @@
       $formOutput[] = ['label' => $label, 'input' => $input];
     }
     return $formOutput;
+  }
+
+  function getUser ($login, $password) {
+    $userListFile = __DIR__ . '/files/login.json';
+    $userList = getJSON($userListFile);
+    $auth = [];
+    foreach ($userList as $user) {
+      if ((strcmp($login, $user['login']) === 0) && (strcmp($password, $user['password']) === 0)) {
+        $id = $user['id'];
+        $name = $user['name'];
+        $auth[] = [$login, $password, $id, $name];
+        return $auth;
+      }
+    }
+    return false;
   }

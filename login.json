@@ -1,0 +1,20 @@
+[
+    {
+        "login": "admin",
+        "password": "123456",
+        "id": "1",
+        "name": "Admin"
+    },
+    {
+        "login": "user",
+        "password": "123",
+        "id": "2",
+        "name": "Керимов Рустам"
+    },
+    {
+        "login": "ru",
+        "password": "123",
+        "name": "ru",
+        "id": 3
+    }
+]
