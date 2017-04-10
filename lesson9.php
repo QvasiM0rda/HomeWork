@@ -1,14 +1,20 @@
 <?php
   error_reporting(E_ALL);
-
-  class Car
+  
+  class Products
   {
     public $brand;
     public $model;
     public $price;
+    protected $discount;
+    
+    
+  }
+
+  class Car extends Products
+  {
     public $year;
     public $color;
-    private $discount = 0.1;
   
     public function __construct($brand, $model, $price, $year, $color)
     {
@@ -36,12 +42,9 @@
     }
   }
   
-  class TV
+  class TV extends Products
   {
-    public $brand;
-    public $model;
-    public $price;
-    private $discount = 0.1;
+    
   
     public function __construct($brand, $model, $price)
     {
