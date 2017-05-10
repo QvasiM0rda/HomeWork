@@ -8,6 +8,7 @@
 
   abstract class Delivery implements GetPrice
   {
+    abstract public function getPrice();
     abstract public function getDeliveryPrice();
     abstract public function getTitle();
   }
